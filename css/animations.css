@@ -1,0 +1,140 @@
+/* ==========================================================================
+   NEXUS 2100 - Keyframe Animations & Micro-Interactions
+   ========================================================================== */
+
+/* 1. Moving Cyber Grid */
+@keyframes gridMove {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(50px);
+    }
+}
+
+/* 2. Floating Elements */
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+/* 3. Live Pulse Dot */
+@keyframes pulseDot {
+    0% {
+        box-shadow: 0 0 0 0 rgba(57, 229, 140, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(57, 229, 140, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(57, 229, 140, 0);
+    }
+}
+
+/* 4. Cyan Radar Pulse */
+@keyframes cyanPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.6);
+    }
+    70% {
+        box-shadow: 0 0 0 14px rgba(0, 229, 255, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 229, 255, 0);
+    }
+}
+
+/* 5. Smooth Page Entrance */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(24px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* 6. Vehicle Movement Animation */
+@keyframes vehicleMove {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(140px);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.vehicle-animated {
+    animation: vehicleMove 7s ease-in-out infinite;
+}
+
+/* 7. SVG Transit Line Dash Flow */
+@keyframes dashFlow {
+    to {
+        stroke-dashoffset: -100;
+    }
+}
+
+.flow-line {
+    stroke-dasharray: 8, 8;
+    animation: dashFlow 4s linear infinite;
+}
+
+/* 8. Rotating Spinner */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* 9. Glow Breathing */
+@keyframes glowBreathe {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(0, 229, 255, 0.3));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(0, 229, 255, 0.7));
+    }
+}
+
+.glow-breathe {
+    animation: glowBreathe 3s ease-in-out infinite;
+}
+
+/* ==========================================================================
+   REDUCED MOTION ACCESSIBILITY OVERRIDES
+   Critical requirement for accessibility compliance
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+body.reduce-motion *,
+body.reduce-motion *::before,
+body.reduce-motion *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+}

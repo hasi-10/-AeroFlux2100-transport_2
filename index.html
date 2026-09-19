@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS 2100 | One Journey. Every Future.</title>
+    <meta name="description" content="Futuristic multi-modal unified transportation platform for the year 2100. Autonomous buses, SkyRail maglev, AirLink urban flight, and AI smart roads.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+    <!-- Accessible Skip Link -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Top Sticky Navigation -->
+    <header class="navbar" role="banner">
+        <div class="container nav-content">
+            <a href="index.html" class="logo" aria-label="NEXUS 2100 Home">
+                <div class="logo-symbol" aria-hidden="true">N</div>
+                <div>NEXUS<span>2100</span></div>
+            </a>
+
+            <nav aria-label="Primary Navigation">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link active" aria-current="page">Explore</a></li>
+                    <li><a href="route.html" class="nav-link">Journeys</a></li>
+                    <li><a href="tracking.html" class="nav-link">Live Map</a></li>
+                    <li><a href="#accessibility-section" class="nav-link">Accessibility</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button type="button" class="accessibility-btn" id="accessibility-toggle-btn" aria-label="Open accessibility options">
+                    <span aria-hidden="true">♿</span> Accessibility
+                </button>
+                <button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+                    ☰
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content">
+        <!-- Hero Section -->
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="hero-grid-overlay" aria-hidden="true"></div>
+            <div class="container">
+                <div class="hero-content animate-fade-up">
+                    <span class="eyebrow">TRANSPORTATION 2100</span>
+                    <h1 id="hero-title">
+                        One Journey.<br>
+                        <span class="text-gradient">Every Future.</span>
+                    </h1>
+                    <p>
+                        Plan, connect, and experience seamless transportation across the smart city of 2100. Autonomous multi-modal routing synchronized in real time.
+                    </p>
+
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap;">
+                        <a href="#journey-search" class="primary-btn">
+                            Plan My Journey <span aria-hidden="true">→</span>
+                        </a>
+                        <a href="tracking.html" class="secondary-btn">
+                            <span class="status-dot pulsing" aria-hidden="true"></span> View Live City Map
+                        </a>
+                    </div>
+
+                    <div class="hero-pills" role="list">
+                        <div class="pill-badge cyan" role="listitem">● AI ROUTING</div>
+                        <div class="pill-badge green" role="listitem">● LIVE NETWORK</div>
+                        <div class="pill-badge" role="listitem">● FULLY ACCESSIBLE</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Search Card -->
+        <div class="container search-card-wrapper" id="journey-search">
+            <div class="glass journey-search-card">
+                <div class="search-header">
+                    <h2>
+                        <span class="text-cyan">⚡</span> WHERE ARE YOU GOING?
+                    </h2>
+                    <span class="pill-badge green">
+                        <span class="status-dot pulsing" aria-hidden="true"></span> 100% Network Optimal
+                    </span>
+                </div>
+
+                <form id="search-form" onsubmit="event.preventDefault(); findJourney();">
+                    <div class="search-inputs-grid">
+                        <div class="search-field">
+                            <label for="from-location-input">FROM</label>
+                            <input type="text" id="from-location-input" value="KDU Campus" placeholder="Enter starting station..." required>
+                        </div>
+
+                        <button type="button" class="swap-btn" id="swap-locations-btn" aria-label="Swap origin and destination">
+                            ⇅
+                        </button>
+
+                        <div class="search-field">
+                            <label for="to-location-input">TO</label>
+                            <input type="text" id="to-location-input" value="Colombo Future District" placeholder="Enter destination..." required>
+                        </div>
+
+                        <div class="search-field search-date-field">
+                            <label for="date-select">DEPARTURE</label>
+                            <select id="date-select">
+                                <option value="now">Today • Now (10:10 PM)</option>
+                                <option value="plus15">+15 Minutes</option>
+                                <option value="plus30">+30 Minutes</option>
+                                <option value="custom">Custom Schedule...</option>
+                            </select>
+                        </div>
+
+                        <button type="button" class="primary-btn search-submit-btn" id="find-route-btn" onclick="findJourney()">
+                            <span>⚡ Find Smart Route</span>
+                        </button>
+                    </div>
+
+                    <!-- Transport Mode Selector -->
+                    <div class="mode-selector-wrapper">
+                        <span class="mode-selector-label">TRAVEL WITH</span>
+                        <div class="mode-chips" role="radiogroup" aria-label="Select preferred transport mode">
+                            <button type="button" class="mode-chip smart active" data-mode="smart" role="radio" aria-checked="true">
+                                ✦ Smartest Route (AI Combined)
+                            </button>
+                            <button type="button" class="mode-chip" data-mode="bus" role="radio" aria-checked="false">
+                                🚌 Autonomous Bus
+                            </button>
+                            <button type="button" class="mode-chip" data-mode="train" role="radio" aria-checked="false">
+                                🚄 SkyRail
+                            </button>
+                            <button type="button" class="mode-chip" data-mode="air" role="radio" aria-checked="false">
+                                ✈ AirLink
+                            </button>
+                            <button type="button" class="mode-chip" data-mode="road" role="radio" aria-checked="false">
+                                🛣 Smart Road
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <!-- AI Recommendation Preview Card -->
+                <div class="ai-recommendation-card">
+                    <div class="ai-rec-info">
+                        <div class="ai-rec-tag">
+                            <span>✦ AI RECOMMENDED</span> • FASTEST ARRIVAL
+                        </div>
+                        <div class="ai-rec-flow">
+                            <span>KDU</span>
+                            <span class="text-cyan">→</span>
+                            <span>Autonomous Bus</span>
+                            <span class="text-cyan">→</span>
+                            <span>SkyRail</span>
+                            <span class="text-cyan">→</span>
+                            <span>AirLink</span>
+                            <span class="text-cyan">→</span>
+                            <span>Colombo Future District</span>
+                        </div>
+                        <div class="ai-rec-meta">
+                            <span>⏱ <strong>32 min</strong></span>
+                            <span>🔄 <strong>2 transfers</strong></span>
+                            <span class="text-green">🌱 <strong>18% less energy</strong></span>
+                        </div>
+                    </div>
+
+                    <a href="route.html" class="outline-btn">
+                        View Journey Details →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transportation Modes Section -->
+        <section class="section" aria-labelledby="modes-heading">
+            <div class="container">
+                <div class="section-header">
+                    <span class="eyebrow">THE 2100 FLEET</span>
+                    <h2 id="modes-heading">Four Vectors. One Unified Grid.</h2>
+                    <p>
+                        Zero drivers, zero delays, and continuous synchronization. Every vehicle connects instantly into your single journey pass.
+                    </p>
+                </div>
+
+                <div class="transport-grid">
+                    <!-- Autonomous Bus -->
+                    <article class="transport-card">
+                        <div class="transport-image-wrapper">
+                            <img src="images/bus.jpg" alt="Sleek autonomous electric bus pod at illuminated transit station in year 2100">
+                            <div class="transport-status-badge">
+                                <span class="status-dot pulsing" aria-hidden="true"></span> Live • 2 min away
+                            </div>
+                        </div>
+                        <div class="transport-card-body">
+                            <div class="transport-card-icon">🚌</div>
+                            <h3>AUTONOMOUS BUS</h3>
+                            <p>Zero-driver urban pods with level-boarding, automated accessibility ramps, and local loop synchronization.</p>
+                            <div class="transport-card-footer">
+                                <span>Speed: 80 km/h</span>
+                                <span class="text-cyan">Route A17</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- SkyRail -->
+                    <article class="transport-card">
+                        <div class="transport-image-wrapper">
+                            <img src="images/train.jpg" alt="Futuristic magnetic levitation SkyRail train traversing elevated glowing city tracks">
+                            <div class="transport-status-badge">
+                                <span class="status-dot pulsing" aria-hidden="true"></span> Live • On schedule
+                            </div>
+                        </div>
+                        <div class="transport-card-body">
+                            <div class="transport-card-icon">🚄</div>
+                            <h3>SKYRAIL</h3>
+                            <p>High-speed magnetic levitation rail network connecting metropolitan sectors in minutes with zero track friction.</p>
+                            <div class="transport-card-footer">
+                                <span>Speed: 320 km/h</span>
+                                <span class="text-cyan">Line S2 MagLev</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- AirLink -->
+                    <article class="transport-card">
+                        <div class="transport-image-wrapper">
+                            <img src="images/air.jpg" alt="Autonomous eVTOL AirLink passenger aircraft flying between illuminated skyscrapers">
+                            <div class="transport-status-badge">
+                                <span class="status-dot pulsing" aria-hidden="true"></span> Live • 5 min boarding
+                            </div>
+                        </div>
+                        <div class="transport-card-body">
+                            <div class="transport-card-icon">✈</div>
+                            <h3>AIRLINK</h3>
+                            <p>Urban aerial eVTOL transit corridors providing rapid point-to-point transit across water and high-density towers.</p>
+                            <div class="transport-card-footer">
+                                <span>Altitude: 350m</span>
+                                <span class="text-cyan">Corridor AL-310</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Smart Road -->
+                    <article class="transport-card">
+                        <div class="transport-image-wrapper">
+                            <img src="images/road.jpg" alt="Futuristic smart highway with luminous intelligent lanes and autonomous vehicles">
+                            <div class="transport-status-badge">
+                                <span class="status-dot pulsing" aria-hidden="true"></span> Live • Low congestion
+                            </div>
+                        </div>
+                        <div class="transport-card-body">
+                            <div class="transport-card-icon">🛣</div>
+                            <h3>SMART ROAD</h3>
+                            <p>Inductive dynamic-charging cyber roads managed by distributed AI to eliminate congestion bottlenecks.</p>
+                            <div class="transport-card-footer">
+                                <span>Flow: 99.2%</span>
+                                <span class="text-cyan">Highway SR-9</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Live Network Visualization Section ("THE CITY IS MOVING") -->
+        <section class="section network-section" aria-labelledby="network-heading">
+            <div class="container network-container">
+                <div class="network-details">
+                    <span class="eyebrow">REAL-TIME TELEMETRY</span>
+                    <h2 id="network-heading">The City Is Moving.</h2>
+                    <p>
+                        Every vehicle. Every route. Every connection. The NEXUS central AI continuously rebalances transit dispatching, eliminating missed transfers before they occur.
+                    </p>
+
+                    <div class="network-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">2,480</div>
+                            <div class="stat-label">Active Autonomous Pods</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">99.8%</div>
+                            <div class="stat-label">Transfer Punctuality</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">0 min</div>
+                            <div class="stat-label">Average Delay</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value text-green">100%</div>
+                            <div class="stat-label">Zero Direct Emissions</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 32px;">
+                        <a href="tracking.html" class="primary-btn">
+                            Launch Interactive Tracking Map →
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Animated Interactive Transit Schematic -->
+                <div class="network-visual-wrapper">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--cyan); letter-spacing: 0.08em;">
+                            ● METROPOLITAN TRANSIT NEXUS
+                        </span>
+                        <span id="active-node-info" style="font-size: 0.8rem; color: var(--muted);">
+                            Hover nodes to inspect status
+                        </span>
+                    </div>
+
+                    <svg class="schematic-svg" viewBox="0 0 500 360" aria-label="Transit Network Diagram">
+                        <!-- Grid Lines Background -->
+                        <defs>
+                            <linearGradient id="cyanVioletGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#00E5FF" />
+                                <stop offset="100%" stop-color="#8B5CF6" />
+                            </linearGradient>
+                            <filter id="glowEffect">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+
+                        <!-- Connecting Transit Corridors -->
+                        <line x1="250" y1="40" x2="250" y2="180" stroke="#00E5FF" stroke-width="3" opacity="0.6" class="flow-line" />
+                        <line x1="60" y1="180" x2="250" y2="180" stroke="#8B5CF6" stroke-width="3" opacity="0.6" class="flow-line" />
+                        <line x1="250" y1="180" x2="440" y2="180" stroke="#39E58C" stroke-width="3" opacity="0.6" class="flow-line" />
+                        <line x1="250" y1="180" x2="250" y2="320" stroke="#FFD166" stroke-width="3" opacity="0.6" class="flow-line" />
+                        
+                        <!-- Diagonal Secondary Vectors -->
+                        <line x1="60" y1="180" x2="250" y2="40" stroke="#26354D" stroke-width="1.5" stroke-dasharray="4,4" />
+                        <line x1="440" y1="180" x2="250" y2="40" stroke="#26354D" stroke-width="1.5" stroke-dasharray="4,4" />
+                        <line x1="60" y1="180" x2="250" y2="320" stroke="#26354D" stroke-width="1.5" stroke-dasharray="4,4" />
+                        <line x1="440" y1="180" x2="250" y2="320" stroke="#26354D" stroke-width="1.5" stroke-dasharray="4,4" />
+
+                        <!-- Center Central Hub Node -->
+                        <circle cx="250" cy="180" r="32" fill="#111B2E" stroke="url(#cyanVioletGrad)" stroke-width="3" filter="url(#glowEffect)" class="transit-node" data-station-name="Future Central Hub" style="cursor: pointer;" />
+                        <circle cx="250" cy="180" r="12" fill="#00E5FF" />
+                        <text x="250" y="225" fill="#F8FAFC" font-size="12" font-weight="700" text-anchor="middle" font-family="'Space Grotesk', sans-serif">CENTRAL HUB</text>
+                        <text x="250" y="240" fill="#94A3B8" font-size="10" text-anchor="middle">Level 0 & SkyDeck</text>
+
+                        <!-- Top: AirLink Node -->
+                        <circle cx="250" cy="40" r="22" fill="#0D1424" stroke="#00E5FF" stroke-width="2.5" class="transit-node" data-station-name="AirLink SkyPort" style="cursor: pointer;" />
+                        <text x="250" y="44" fill="#00E5FF" font-size="14" text-anchor="middle">✈</text>
+                        <text x="250" y="16" fill="#F8FAFC" font-size="11" font-weight="600" text-anchor="middle">AIRLINK (AL-310)</text>
+
+                        <!-- Left: Bus Node -->
+                        <circle cx="60" cy="180" r="22" fill="#0D1424" stroke="#8B5CF6" stroke-width="2.5" class="transit-node" data-station-name="KDU Campus Bus Depot" style="cursor: pointer;" />
+                        <text x="60" y="184" fill="#8B5CF6" font-size="14" text-anchor="middle">🚌</text>
+                        <text x="60" y="215" fill="#F8FAFC" font-size="11" font-weight="600" text-anchor="middle">AUTONOMOUS BUS</text>
+
+                        <!-- Right: SkyRail Node -->
+                        <circle cx="440" cy="180" r="22" fill="#0D1424" stroke="#39E58C" stroke-width="2.5" class="transit-node" data-station-name="Colombo Metro Terminal" style="cursor: pointer;" />
+                        <text x="440" y="184" fill="#39E58C" font-size="14" text-anchor="middle">🚄</text>
+                        <text x="440" y="215" fill="#F8FAFC" font-size="11" font-weight="600" text-anchor="middle">SKYRAIL (LINE S2)</text>
+
+                        <!-- Bottom: Smart Road Node -->
+                        <circle cx="250" cy="320" r="22" fill="#0D1424" stroke="#FFD166" stroke-width="2.5" class="transit-node" data-station-name="Smart Corridor Highway" style="cursor: pointer;" />
+                        <text x="250" y="324" fill="#FFD166" font-size="14" text-anchor="middle">🛣</text>
+                        <text x="250" y="355" fill="#F8FAFC" font-size="11" font-weight="600" text-anchor="middle">SMART ROAD SR-9</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- Accessibility & Inclusive Experience Section -->
+        <section class="section accessibility-section" id="accessibility-section" aria-labelledby="access-heading">
+            <div class="container">
+                <div class="section-header">
+                    <span class="eyebrow">INCLUSIVE DESIGN</span>
+                    <h2 id="access-heading">Travel Your Way.</h2>
+                    <p>
+                        Designed for everyone. Full accessibility is integrated into the core journey engine, never treated as an afterthought.
+                    </p>
+                </div>
+
+                <div class="access-panel-grid">
+                    <!-- Text Scaling -->
+                    <div class="access-card">
+                        <h3><span aria-hidden="true">🔤</span> Text Sizing</h3>
+                        <p>Adjust visual scale and legibility across all stations, timings, and instructions.</p>
+                        <div class="access-control-group" role="group" aria-label="Text sizing">
+                            <button type="button" class="access-toggle-btn active" data-access-text="normal">Default (A)</button>
+                            <button type="button" class="access-toggle-btn" data-access-text="large">Large (A+)</button>
+                        </div>
+                    </div>
+
+                    <!-- Contrast Control -->
+                    <div class="access-card">
+                        <h3><span aria-hidden="true">🌓</span> Visual Contrast</h3>
+                        <p>Switch to high contrast OLED mode with heightened borders and maximum clarity.</p>
+                        <div class="access-control-group" role="group" aria-label="Visual contrast">
+                            <button type="button" class="access-toggle-btn active" data-access-contrast="normal">Standard</button>
+                            <button type="button" class="access-toggle-btn" data-access-contrast="high">High Contrast</button>
+                        </div>
+                    </div>
+
+                    <!-- Motion Preference -->
+                    <div class="access-card">
+                        <h3><span aria-hidden="true">⚡</span> Reduced Motion</h3>
+                        <p>Disable background grid scrolling, pulsing glow indicators, and live vehicle loops.</p>
+                        <div class="access-control-group" role="group" aria-label="Motion preference">
+                            <button type="button" class="access-toggle-btn active" data-access-motion="normal">Standard</button>
+                            <button type="button" class="access-toggle-btn" data-access-motion="reduced">Reduced</button>
+                        </div>
+                    </div>
+
+                    <!-- Route Guidance Preferences -->
+                    <div class="access-card">
+                        <h3><span aria-hidden="true">♿</span> Journey Preferences</h3>
+                        <p>Personalize AI routing filters to match your exact mobility and sensory requirements.</p>
+                        
+                        <label class="feature-checkbox">
+                            <input type="checkbox" id="step-free-check">
+                            <span><strong>Step-Free Routes Only</strong> (Elevators & zero-grade platforms)</span>
+                        </label>
+
+                        <label class="feature-checkbox">
+                            <input type="checkbox" id="voice-guidance-check">
+                            <span><strong>Auditory Voice Guidance</strong> (Spoken transfer directions)</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Floating ORA AI Assistant Trigger -->
+    <button type="button" class="ora-ai-trigger" id="ora-ai-trigger-btn" aria-label="Open ORA AI Assistant">
+        <span class="sparkle" aria-hidden="true">✦</span> ORA AI
+    </button>
+
+    <!-- ORA AI Assistant Modal -->
+    <div class="ora-modal-overlay" id="ora-ai-modal" role="dialog" aria-modal="true" aria-labelledby="ora-title" aria-hidden="true">
+        <div class="ora-modal-card">
+            <div class="ora-modal-header">
+                <h3 id="ora-title">
+                    <span class="text-cyan">✦</span> ORA AI Transit Intelligence
+                </h3>
+                <button type="button" class="close-modal-btn" id="close-ora-modal" aria-label="Close ORA AI assistant">×</button>
+            </div>
+            <div class="ora-chat-body" id="ora-chat-messages">
+                <div class="chat-bubble assistant">
+                    Greetings! I am ORA, your 2100 transit guide. How can I optimize your commute across Colombo Future District today?
+                </div>
+                <div class="chat-suggestions">
+                    <button type="button" class="suggestion-pill">"Find the fastest route"</button>
+                    <button type="button" class="suggestion-pill">"Avoid stairs & steps"</button>
+                    <button type="button" class="suggestion-pill">"I'm running late"</button>
+                    <button type="button" class="suggestion-pill">"Check energy efficiency"</button>
+                </div>
+            </div>
+            <div class="ora-input-bar">
+                <input type="text" id="ora-user-input" placeholder="Ask ORA anything about routes or transfers..." aria-label="Ask ORA message">
+                <button type="button" class="primary-btn" id="ora-send-btn" style="padding: 10px 18px;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accessibility Quick Drawer Modal -->
+    <div class="access-modal-overlay" id="accessibility-modal" role="dialog" aria-modal="true" aria-labelledby="modal-access-title" aria-hidden="true">
+        <div class="glass" style="width: min(440px, 100%); padding: 30px; border-color: var(--cyan);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 id="modal-access-title" style="font-size: 1.3rem;">♿ Accessibility Settings</h3>
+                <button type="button" class="close-modal-btn" id="close-access-modal" aria-label="Close modal">×</button>
+            </div>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">
+                Your preferences are saved and automatically applied across all screens.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">TEXT SIZE</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-text="normal">Default</button>
+                        <button type="button" class="access-toggle-btn" data-access-text="large">Large (116%)</button>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">CONTRAST</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-contrast="normal">Standard</button>
+                        <button type="button" class="access-toggle-btn" data-access-contrast="high">High Contrast OLED</button>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">MOTION</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-motion="normal">Standard</button>
+                        <button type="button" class="access-toggle-btn" data-access-motion="reduced">Reduced</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="primary-btn" style="width: 100%; margin-top: 24px;" onclick="document.getElementById('accessibility-modal').classList.remove('open')">
+                Save & Apply
+            </button>
+        </div>
+    </div>
+
+    <!-- AI Network Analysis Loading Screen Simulation -->
+    <div class="analysis-overlay" id="analysis-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="analysis-box">
+            <div class="spinner-ring" aria-hidden="true"></div>
+            <h2 id="analysis-title" style="font-size: 1.6rem; margin-bottom: 8px;">ANALYZING NETWORK...</h2>
+            <p style="font-size: 0.95rem;">Evaluating real-time vectors across Colombo Smart City</p>
+            
+            <ul class="analysis-steps">
+                <li class="analysis-step" id="step-bus">
+                    <span class="step-icon">●</span>
+                    <span class="step-status">Checking autonomous buses...</span>
+                </li>
+                <li class="analysis-step" id="step-rail">
+                    <span class="step-icon">●</span>
+                    <span class="step-status">Checking SkyRail corridors...</span>
+                </li>
+                <li class="analysis-step" id="step-air">
+                    <span class="step-icon">●</span>
+                    <span class="step-status">Checking air routes & weather...</span>
+                </li>
+                <li class="analysis-step" id="step-opt">
+                    <span class="step-icon">●</span>
+                    <span class="step-status">Optimizing transfers & step-free paths...</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="index.html" class="bottom-nav-item active" aria-current="page">
+            <span class="icon">⌂</span>
+            <span>Home</span>
+        </a>
+        <a href="route.html" class="bottom-nav-item">
+            <span class="icon">◉</span>
+            <span>Journey</span>
+        </a>
+        <a href="tracking.html" class="bottom-nav-item">
+            <span class="icon">🗺</span>
+            <span>Map</span>
+        </a>
+        <button type="button" class="bottom-nav-item" onclick="document.getElementById('accessibility-modal').classList.add('open')">
+            <span class="icon">♿</span>
+            <span>Access</span>
+        </button>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-symbol">N</div>
+                        <div>NEXUS<span>2100</span></div>
+                    </div>
+                    <p style="max-width: 400px; font-size: 0.9rem;">
+                        One Journey. Every Future. The unified multi-modal autonomous mobility platform for the metropolitan grid of 2100.
+                    </p>
+                </div>
+                <div>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 0.9rem;">
+                        <a href="index.html" style="color: var(--muted); text-decoration: none;">Home</a>
+                        <a href="route.html" style="color: var(--muted); text-decoration: none;">Route Details</a>
+                        <a href="tracking.html" style="color: var(--muted); text-decoration: none;">Live Tracking</a>
+                        <a href="#accessibility-section" style="color: var(--muted); text-decoration: none;">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2100 NEXUS Metropolitan Transit Authority. All rights reserved.</span>
+                <span>ISO-2100 Inclusive Mobility Certified • WCAG AAA Compliant</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
