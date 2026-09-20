@@ -381,4 +381,72 @@
         });
     });
 
+    // --- Inject Profile Avatar if Logged In ---
+    function checkAndInjectProfile() {
+        // Skip on login and intro pages
+        if (window.location.pathname.includes('login.html') || window.location.pathname.includes('intro.html')) return;
+        
+        const photo = sessionStorage.getItem('aeroflux_user_photo');
+        const idCode = sessionStorage.getItem('aeroflux_user_id');
+        
+        if (photo && idCode) {
+            // Find the login button
+            const navActions = document.querySelector('.nav-actions');
+            if (!navActions) return;
+            
+            const loginBtn = navActions.querySelector('a[href="login.html"]');
+            if (loginBtn) {
+                // Create profile container
+                const profileContainer = document.createElement('div');
+                profileContainer.style.display = 'flex';
+                profileContainer.style.alignItems = 'center';
+                profileContainer.style.gap = '10px';
+                profileContainer.style.background = 'rgba(0, 240, 255, 0.05)';
+                profileContainer.style.border = '1px solid rgba(0, 240, 255, 0.2)';
+                profileContainer.style.padding = '4px 12px 4px 4px';
+                profileContainer.style.borderRadius = '20px';
+                profileContainer.style.cursor = 'pointer';
+                profileContainer.style.transition = 'background 0.2s';
+                
+                // Add hover effect
+                profileContainer.addEventListener('mouseenter', () => {
+                    profileContainer.style.background = 'rgba(0, 240, 255, 0.15)';
+                });
+                profileContainer.addEventListener('mouseleave', () => {
+                    profileContainer.style.background = 'rgba(0, 240, 255, 0.05)';
+                });
+                
+                // Avatar image
+                const avatar = document.createElement('img');
+                avatar.src = photo;
+                avatar.style.width = '32px';
+                avatar.style.height = '32px';
+                avatar.style.borderRadius = '50%';
+                avatar.style.objectFit = 'cover';
+                avatar.style.border = '2px solid var(--cyan)';
+                
+                // ID text
+                const textNode = document.createElement('span');
+                textNode.textContent = idCode;
+                textNode.style.fontFamily = 'var(--font-mono)';
+                textNode.style.fontSize = '0.85rem';
+                textNode.style.color = 'var(--cyan)';
+                textNode.style.letterSpacing = '0.05em';
+                
+                profileContainer.appendChild(avatar);
+                profileContainer.appendChild(textNode);
+                
+                // Replace login button with profile
+                loginBtn.replaceWith(profileContainer);
+            }
+        }
+    }
+    
+    // Add to existing DOMContentLoaded or run immediately if already loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkAndInjectProfile);
+    } else {
+        checkAndInjectProfile();
+    }
+
 })();

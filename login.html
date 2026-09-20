@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AEROFLUX 2100 | Identity Access</title>
+    <meta name="description" content="Secure login portal for AEROFLUX 2100 transportation network.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/login.css">
+</head>
+<body class="login-body">
+    <!-- Cinematic Background Layers -->
+    <div class="login-background-wrapper" id="parallax-bg">
+        <div class="login-bg-image"></div>
+        <div class="login-grid"></div>
+        <div class="login-particles" id="particles-container"></div>
+        <svg class="login-network-svg" viewBox="0 0 1000 600" preserveAspectRatio="xMidYMid slice" id="parallax-network">
+            <!-- Simulated Transport Network Overlay -->
+            <path d="M 0,400 Q 250,250 500,300 T 1000,150" fill="none" stroke="rgba(0, 240, 255, 0.15)" stroke-width="2" />
+            <path d="M 100,600 L 300,350 L 600,450 L 900,100" fill="none" stroke="rgba(176, 38, 255, 0.15)" stroke-width="1.5" />
+            <circle cx="300" cy="350" r="4" fill="rgba(0, 240, 255, 0.4)" class="hub-node" />
+            <circle cx="600" cy="450" r="3" fill="rgba(176, 38, 255, 0.4)" class="hub-node" />
+            <!-- Moving data point -->
+            <circle r="2" fill="#00f0ff" class="moving-data-point">
+                <animateMotion dur="15s" repeatCount="indefinite" path="M 0,400 Q 250,250 500,300 T 1000,150" />
+            </circle>
+        </svg>
+    </div>
+
+    <!-- Light Beam Sweep Intro -->
+    <div class="intro-light-beam"></div>
+
+    <!-- Main Container -->
+    <main class="login-main-container">
+        
+
+        <!-- Login Card System (Hidden initially, slides up) -->
+        <div class="login-card-wrapper" id="login-card-wrapper">
+            <div class="glass login-card">
+                
+                <!-- State 1: Login Form (Hidden) -->
+                <div class="login-panel hidden-panel right" id="panel-login">
+                    <div class="panel-header">
+                        <button type="button" class="back-icon-btn" data-target="panel-biometric">←</button>
+                        <h2>WELCOME BACK</h2>
+                        <p>Authenticate your Mobility ID to continue.</p>
+                    </div>
+
+                    <form id="form-login" class="login-form">
+                        <div class="input-group">
+                            <input type="text" id="mobility-id" placeholder=" " required>
+                            <label for="mobility-id">Mobility ID / Email</label>
+                            <span class="input-icon">👤</span>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="password" id="password" placeholder=" " required>
+                            <label for="password">Security Protocol (Password)</label>
+                            <span class="input-icon">🔒</span>
+                            <button type="button" class="password-toggle" id="toggle-pwd" aria-label="Toggle password visibility">👁️</button>
+                        </div>
+
+                        <div class="form-actions" style="justify-content: flex-end;">
+                            <button type="button" class="text-link" id="link-forgot-pwd">Forgot password?</button>
+                        </div>
+
+                        <button type="submit" class="primary-btn full-width login-btn" id="btn-submit-login">
+                            <span class="btn-text">ACCESS AEROFLUX</span>
+                            <span class="btn-loader"></span>
+                            <div class="btn-light-sweep"></div>
+                        </button>
+                    </form>
+
+                    <div class="panel-footer">
+                        <p>New to the network? <button type="button" class="text-link accent" id="link-create-id">Create Mobility ID</button></p>
+                    </div>
+                </div>
+
+                <!-- State 2: Forgot Password (Hidden) -->
+                <div class="login-panel hidden-panel right" id="panel-forgot">
+                    <div class="panel-header">
+                        <button type="button" class="back-icon-btn" data-target="panel-login">←</button>
+                        <h2>RECOVER ID</h2>
+                        <p>Initiate identity verification protocol.</p>
+                    </div>
+                    <form class="login-form">
+                        <div class="input-group">
+                            <input type="email" id="recovery-email" placeholder=" " required>
+                            <label for="recovery-email">Registered Neural/Email Address</label>
+                            <span class="input-icon">✉️</span>
+                        </div>
+                        <button type="button" class="primary-btn full-width login-btn">
+                            <span class="btn-text">SEND VERIFICATION LINK</span>
+                            <div class="btn-light-sweep"></div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- State 3: Registration (Hidden) -->
+                <div class="login-panel hidden-panel right" id="panel-register">
+                    <div class="panel-header">
+                        <button type="button" class="back-icon-btn" data-target="panel-login">←</button>
+                        <h2>CREATE ID</h2>
+                        <p>Join the 2100 transportation network.</p>
+                    </div>
+                    <form class="login-form">
+                        <div class="input-group">
+                            <input type="text" id="reg-name" placeholder=" " required>
+                            <label for="reg-name">Full Name / Designation</label>
+                        </div>
+                        <div class="input-group">
+                            <input type="email" id="reg-email" placeholder=" " required>
+                            <label for="reg-email">Contact Protocol (Email)</label>
+                        </div>
+                        <button type="button" class="primary-btn full-width login-btn">
+                            <span class="btn-text">INITIALIZE IDENTITY</span>
+                            <div class="btn-light-sweep"></div>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- State 4: Biometric Scan (Default) -->
+                <div class="login-panel active-panel" id="panel-biometric">
+                    <div class="panel-header">
+                        <h2>BIOMETRIC SCAN</h2>
+                        <p>Primary Authentication Mode</p>
+                    </div>
+                    <div class="biometric-visualizer">
+                        <video id="bio-camera" autoplay playsinline muted></video>
+                        <div class="bio-ring bio-ring-1"></div>
+                        <div class="bio-ring bio-ring-2"></div>
+                        <div class="bio-ring bio-ring-3"></div>
+                        <div class="bio-scan-line"></div>
+                        <div class="bio-icon" id="bio-fallback-icon">👁️</div>
+                    </div>
+                    <p class="bio-status text-cyan pulsing-text">VERIFYING IDENTITY...</p>
+                    <div class="panel-footer" style="border-top: none; padding-top: 10px;">
+                        <button type="button" class="text-link accent" id="link-manual-login">Use Manual ID / Password</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Network Status Data -->
+        <div class="login-network-status">
+            <div class="status-indicator">
+                <span class="status-dot pulsing"></span> AEROFLUX NETWORK ONLINE
+            </div>
+            <div class="demo-stats">
+                <div class="stat-item">
+                    <span class="stat-label">CONNECTED HUBS</span>
+                    <span class="stat-value text-cyan" id="count-hubs">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">ACTIVE ROUTES</span>
+                    <span class="stat-value text-violet" id="count-routes">0</span>
+                </div>
+                <div class="stat-disclaimer">Simulated Demo Data</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Success Transition Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-profile-card">
+            <img id="success-avatar" src="" alt="User Avatar" class="success-avatar" style="display:none;">
+            <div class="success-ring"></div>
+        </div>
+        <h2>WELCOME TO AEROFLUX</h2>
+        <p class="success-id text-cyan" id="success-id-text">ACCESS GRANTED</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/common.js"></script>
+    <script src="js/login.js"></script>
+</body>
+</html>

@@ -46,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // Redirect
         setTimeout(() => {
-            window.location.href = 'index.html';
+            window.location.href = 'login.html';
         }, 1000); // 1 second for fade out
         
     }, totalLetterAnimationTime + 1500); // 1.5 seconds pause after tagline shows
