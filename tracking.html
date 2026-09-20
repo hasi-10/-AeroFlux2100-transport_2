@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/payments.css">
 </head>
 <body>
 
@@ -32,6 +34,7 @@
             </nav>
 
             <div class="nav-actions">
+                <!-- Notification bell injected by JS -->
                 <a href="login.html" class="primary-btn" style="font-size: 0.85rem; padding: 8px 16px;">Login</a>
             </div>
         </div>
@@ -318,9 +321,9 @@
             <span class="icon">◉</span>
             <span>Journey</span>
         </a>
-        <a href="tracking.html" class="bottom-nav-item active" aria-current="page">
-            <span class="icon">🗺</span>
-            <span>Map</span>
+        <a href="payments.html" class="bottom-nav-item">
+            <span class="icon">💳</span>
+            <span>Payments</span>
         </a>
         <button type="button" class="bottom-nav-item" onclick="document.getElementById('accessibility-modal').classList.add('open')">
             <span class="icon">♿</span>
@@ -355,6 +358,8 @@
     </footer>
 
     <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/payments.js"></script>
     <script src="js/tracking.js"></script>
 </body>
 </html>

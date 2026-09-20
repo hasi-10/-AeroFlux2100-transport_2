@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/payments.css">
 </head>
 
 <body>
@@ -35,6 +37,7 @@
             </nav>
 
             <div class="nav-actions">
+                <!-- Notification bell — injected by notifications.js; placeholder for initial render -->
                 <a href="login.html" class="primary-btn" style="font-size: 0.85rem; padding: 8px 16px;">Login</a>
                 <button type="button" class="mobile-menu-btn" id="mobile-menu-toggle"
                     aria-label="Toggle navigation menu">
@@ -470,6 +473,42 @@
                             <span><strong>Auditory Voice Guidance</strong> (Spoken transfer directions)</span>
                         </label>
                     </div>
+
+                    <!-- Notification Preferences - new addition -->
+                    <div class="access-card">
+                        <h3><span aria-hidden="true">&#128276;</span> Notification Preferences</h3>
+                        <p>Choose which AeroFlux real-time updates you receive.</p>
+                        <div class="af-notif-pref-card" style="border:none; padding: 0; background: none;">
+                            <div class="af-notif-pref-row">
+                                <span class="af-notif-pref-label">Journey Updates</span>
+                                <label class="af-toggle" aria-label="Toggle Journey Updates">
+                                    <input type="checkbox" data-notif-pref="journeyUpdates" checked>
+                                    <span class="af-toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="af-notif-pref-row">
+                                <span class="af-notif-pref-label">Delay Alerts</span>
+                                <label class="af-toggle" aria-label="Toggle Delay Alerts">
+                                    <input type="checkbox" data-notif-pref="delayAlerts" checked>
+                                    <span class="af-toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="af-notif-pref-row">
+                                <span class="af-notif-pref-label">Payment Updates</span>
+                                <label class="af-toggle" aria-label="Toggle Payment Updates">
+                                    <input type="checkbox" data-notif-pref="paymentUpdates" checked>
+                                    <span class="af-toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="af-notif-pref-row">
+                                <span class="af-notif-pref-label">Service Alerts</span>
+                                <label class="af-toggle" aria-label="Toggle Service Alerts">
+                                    <input type="checkbox" data-notif-pref="serviceAlerts" checked>
+                                    <span class="af-toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -595,9 +634,9 @@
             <span class="icon">◉</span>
             <span>Journey</span>
         </a>
-        <a href="tracking.html" class="bottom-nav-item">
-            <span class="icon">🗺</span>
-            <span>Map</span>
+        <a href="payments.html" class="bottom-nav-item">
+            <span class="icon">💳</span>
+            <span>Payments</span>
         </a>
         <button type="button" class="bottom-nav-item"
             onclick="document.getElementById('accessibility-modal').classList.add('open')">
@@ -638,6 +677,8 @@
     </footer>
 
     <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/payments.js"></script>
     <script src="js/main.js"></script>
 </body>
 

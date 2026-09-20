@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Methods | AeroFlux2100</title>
+    <meta name="description" content="Manage your AeroFlux2100 payment methods, view transaction history, and download journey receipts.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/payments.css">
+</head>
+
+<body>
+
+    <!-- Accessible Skip Link -->
+    <a href="#af-payments-root" class="skip-link">Skip to main content</a>
+
+    <!-- Top Sticky Navigation (identical template to other pages) -->
+    <header class="navbar" role="banner">
+        <div class="container nav-content">
+            <a href="index.html" class="logo" aria-label="AeroFlux Home">
+                <div class="logo-symbol" aria-hidden="true">A</div>
+                <div>AeroFlux<span>2100</span></div>
+            </a>
+
+            <nav aria-label="Primary Navigation">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Explore</a></li>
+                    <li><a href="route.html" class="nav-link">Journeys</a></li>
+                    <li><a href="tracking.html" class="nav-link">Live Map</a></li>
+                    <li><a href="payments.html" class="nav-link active" aria-current="page">Payments</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <!-- Notification bell injected by notifications.js -->
+                <a href="login.html" class="primary-btn" style="font-size: 0.85rem; padding: 8px 16px;">Login</a>
+                <button type="button" class="mobile-menu-btn" id="mobile-menu-toggle" aria-label="Toggle navigation menu">☰</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="af-payments-root" class="af-payments-page">
+        <div class="container">
+
+            <!-- Page Header -->
+            <div class="af-payments-page-header animate-fade-up">
+                <span class="eyebrow">ACCOUNT</span>
+                <h1>
+                    <span class="text-gradient">Payment</span> Methods
+                </h1>
+                <p>Manage how you pay for your AeroFlux journeys.</p>
+            </div>
+
+            <!-- ── SAVED PAYMENT METHODS ── -->
+            <section class="af-payments-section" aria-labelledby="af-pm-section-title">
+                <div class="af-section-title-row">
+                    <h2 id="af-pm-section-title" class="af-section-title">
+                        <span aria-hidden="true">💳</span> Saved Cards
+                    </h2>
+                    <button type="button" id="af-add-pm-btn" class="primary-btn" style="font-size: 0.85rem; padding: 10px 20px;">
+                        + Add Payment Method
+                    </button>
+                </div>
+
+                <!-- Card Grid — populated by payments.js -->
+                <div id="af-pm-grid" class="af-pm-grid" role="list" aria-label="Saved payment methods"></div>
+
+                <!-- Empty State -->
+                <div id="af-pm-empty" class="af-pm-empty" style="display:none;" aria-live="polite">
+                    <div class="af-pm-empty-icon">💳</div>
+                    <h3>No Payment Methods</h3>
+                    <p>Add a payment method to make future journey bookings faster.</p>
+                    <button type="button" class="primary-btn" onclick="document.getElementById('af-add-pm-btn').click()">
+                        + Add Payment Method
+                    </button>
+                </div>
+            </section>
+
+            <!-- ── TRANSACTION HISTORY ── -->
+            <section class="af-payments-section" aria-labelledby="af-tx-section-title">
+                <div class="af-section-title-row">
+                    <h2 id="af-tx-section-title" class="af-section-title">
+                        <span aria-hidden="true">📋</span> Payment History
+                    </h2>
+                </div>
+
+                <!-- Transaction List — populated by payments.js -->
+                <div id="af-tx-list" class="af-tx-list" role="list" aria-label="Transaction history"></div>
+
+                <!-- Empty State -->
+                <div id="af-tx-empty" class="af-tx-empty glass" style="display:none;" aria-live="polite">
+                    <p>No transactions yet. Your journey payment history will appear here.</p>
+                </div>
+            </section>
+
+            <!-- ── NOTIFICATION PREFERENCES ── -->
+            <section class="af-payments-section" aria-labelledby="af-notif-pref-title">
+                <div class="af-section-title-row">
+                    <h2 id="af-notif-pref-title" class="af-section-title">
+                        <span aria-hidden="true">🔔</span> Notification Preferences
+                    </h2>
+                </div>
+
+                <div class="af-notif-pref-card glass">
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">Journey Updates</span>
+                        <label class="af-toggle" aria-label="Toggle Journey Updates notifications">
+                            <input type="checkbox" data-notif-pref="journeyUpdates" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">Delay Alerts</span>
+                        <label class="af-toggle" aria-label="Toggle Delay Alerts notifications">
+                            <input type="checkbox" data-notif-pref="delayAlerts" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">Payment Updates</span>
+                        <label class="af-toggle" aria-label="Toggle Payment Updates notifications">
+                            <input type="checkbox" data-notif-pref="paymentUpdates" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">Booking Updates</span>
+                        <label class="af-toggle" aria-label="Toggle Booking Updates notifications">
+                            <input type="checkbox" data-notif-pref="bookingUpdates" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">Service Alerts</span>
+                        <label class="af-toggle" aria-label="Toggle Service Alerts notifications">
+                            <input type="checkbox" data-notif-pref="serviceAlerts" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="af-notif-pref-row">
+                        <span class="af-notif-pref-label">AI Recommendations</span>
+                        <label class="af-toggle" aria-label="Toggle AI Recommendations notifications">
+                            <input type="checkbox" data-notif-pref="aiRecommendations" checked>
+                            <span class="af-toggle-slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- ================================================================
+         ADD PAYMENT METHOD MODAL
+    ================================================================ -->
+    <div id="af-add-card-modal" class="af-modal-overlay" role="dialog" aria-modal="true"
+         aria-labelledby="af-add-modal-title" aria-hidden="true">
+        <div class="af-modal-card">
+            <div class="af-modal-header">
+                <h2 id="af-add-modal-title" class="af-modal-title">ADD PAYMENT METHOD</h2>
+                <button type="button" id="af-modal-close" class="af-modal-close" aria-label="Close modal">×</button>
+            </div>
+
+            <div class="af-modal-body">
+
+                <!-- Success animation (hidden by default) -->
+                <div id="af-add-success-anim" class="af-add-success-anim" style="display:none;" aria-live="polite">
+                    <div class="af-success-ring">
+                        <svg viewBox="0 0 52 52" width="36" height="36" aria-hidden="true">
+                            <path fill="none" stroke="var(--cyan)" stroke-width="4" stroke-linecap="round" d="M14 27l7 7 17-17"/>
+                        </svg>
+                    </div>
+                    <p style="color: var(--cyan); font-weight: 600; margin:0;">Adding your card...</p>
+                </div>
+
+                <form id="af-card-form" class="af-card-form" novalidate>
+
+                    <!-- Disclaimer -->
+                    <div class="af-form-disclaimer" role="note">
+                        ⚠ Demo Mode — No real payment data is processed or stored. Only display information is saved.
+                    </div>
+
+                    <!-- Cardholder Name -->
+                    <div class="af-form-group">
+                        <label for="af-card-name">CARDHOLDER NAME</label>
+                        <input type="text" id="af-card-name" class="af-form-input"
+                               placeholder="Name on card" autocomplete="cc-name" required
+                               aria-required="true" aria-describedby="af-card-name-err">
+                    </div>
+
+                    <!-- Card Number -->
+                    <div class="af-form-group">
+                        <label for="af-card-number">CARD NUMBER</label>
+                        <div class="af-card-num-wrap">
+                            <input type="text" id="af-card-number" class="af-form-input"
+                                   placeholder="1234 5678 9012 3456" maxlength="19"
+                                   inputmode="numeric" autocomplete="cc-number" required
+                                   aria-required="true">
+                            <span id="af-detected-brand" class="af-detected-brand" aria-live="polite"></span>
+                        </div>
+                    </div>
+
+                    <!-- Expiry + CVV -->
+                    <div class="af-form-row">
+                        <div class="af-form-group">
+                            <label for="af-card-expiry">EXPIRY DATE</label>
+                            <input type="text" id="af-card-expiry" class="af-form-input"
+                                   placeholder="MM/YY" maxlength="5"
+                                   inputmode="numeric" autocomplete="cc-exp" required
+                                   aria-required="true">
+                        </div>
+                        <div class="af-form-group">
+                            <label for="af-card-cvv">SECURITY CODE</label>
+                            <input type="password" id="af-card-cvv" class="af-form-input"
+                                   placeholder="•••" maxlength="4"
+                                   inputmode="numeric" autocomplete="cc-csc" required
+                                   aria-required="true" aria-describedby="af-cvv-note">
+                            <span id="af-cvv-note" style="font-size:0.7rem; color:var(--muted);">Not stored</span>
+                        </div>
+                    </div>
+
+                    <!-- Set as Default -->
+                    <div class="af-form-checkbox-row">
+                        <input type="checkbox" id="af-card-default">
+                        <label for="af-card-default">Set as default payment method</label>
+                    </div>
+
+                    <button type="submit" id="af-card-submit-btn" class="primary-btn af-confirm-pay-btn">
+                        ADD PAYMENT METHOD
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         REMOVE PAYMENT METHOD MODAL
+    ================================================================ -->
+    <div id="af-remove-modal" class="af-modal-overlay" role="dialog" aria-modal="true"
+         aria-labelledby="af-remove-modal-title" aria-hidden="true">
+        <div class="af-modal-card" style="width: min(380px, 100%);">
+            <div class="af-modal-header">
+                <h2 id="af-remove-modal-title" class="af-modal-title">REMOVE PAYMENT METHOD?</h2>
+                <button type="button" id="af-cancel-remove-btn" class="af-modal-close" aria-label="Cancel removal">×</button>
+            </div>
+            <div class="af-remove-modal-body">
+                <div class="af-remove-icon" aria-hidden="true">🗑</div>
+                <p id="af-remove-detail" class="af-remove-detail"></p>
+                <div class="af-remove-actions">
+                    <button type="button" id="af-cancel-remove-btn-2" class="secondary-btn"
+                            onclick="document.getElementById('af-remove-modal').classList.remove('af-modal-open');
+                                     document.getElementById('af-remove-modal').setAttribute('aria-hidden','true');">
+                        CANCEL
+                    </button>
+                    <button type="button" id="af-confirm-remove-btn" class="af-remove-btn-confirm">
+                        REMOVE
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================================================================
+         RECEIPT MODAL
+    ================================================================ -->
+    <div id="af-receipt-modal" class="af-modal-overlay" role="dialog" aria-modal="true"
+         aria-labelledby="af-receipt-modal-title" aria-hidden="true">
+        <div class="af-modal-card" style="width: min(440px, 100%);">
+            <div class="af-modal-header">
+                <h2 id="af-receipt-modal-title" class="af-modal-title">JOURNEY RECEIPT</h2>
+                <button type="button" id="af-receipt-close" class="af-modal-close" aria-label="Close receipt">×</button>
+            </div>
+            <div id="af-receipt-body" class="af-receipt-body" aria-live="polite"></div>
+            <div class="af-receipt-actions">
+                <button type="button" id="af-receipt-download" class="outline-btn" style="font-size:0.85rem;">
+                    Download Receipt
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating ORA AI Assistant Trigger -->
+    <button type="button" class="ora-ai-trigger" id="ora-ai-trigger-btn" aria-label="Open ORA AI Assistant">
+        <span class="sparkle" aria-hidden="true">✦</span> ORA AI
+    </button>
+
+    <!-- ORA AI Assistant Modal -->
+    <div class="ora-modal-overlay" id="ora-ai-modal" role="dialog" aria-modal="true" aria-labelledby="ora-title" aria-hidden="true">
+        <div class="ora-modal-card">
+            <div class="ora-modal-header">
+                <h3 id="ora-title"><span class="text-cyan">✦</span> ORA AI Transit Intelligence</h3>
+                <button type="button" class="close-modal-btn" id="close-ora-modal" aria-label="Close ORA AI assistant">×</button>
+            </div>
+            <div class="ora-chat-body" id="ora-chat-messages">
+                <div class="chat-bubble assistant">
+                    Need help managing your payments or planning a journey? I'm ORA — your 2100 transit guide.
+                </div>
+                <div class="chat-suggestions">
+                    <button type="button" class="suggestion-pill">"How do I add a card?"</button>
+                    <button type="button" class="suggestion-pill">"Plan a journey"</button>
+                    <button type="button" class="suggestion-pill">"View my receipts"</button>
+                </div>
+            </div>
+            <div class="ora-input-bar">
+                <input type="text" id="ora-user-input" placeholder="Ask ORA anything about routes or payments..." aria-label="Ask ORA message">
+                <button type="button" class="primary-btn" id="ora-send-btn" style="padding: 10px 18px;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accessibility Quick Drawer Modal -->
+    <div class="access-modal-overlay" id="accessibility-modal" role="dialog" aria-modal="true"
+        aria-labelledby="modal-access-title" aria-hidden="true">
+        <div class="glass" style="width: min(440px, 100%); padding: 30px; border-color: var(--cyan);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 id="modal-access-title" style="font-size: 1.3rem;">♿ Accessibility Settings</h3>
+                <button type="button" class="close-modal-btn" id="close-access-modal" aria-label="Close modal">×</button>
+            </div>
+            <p style="font-size: 0.9rem; margin-bottom: 20px;">Your preferences are saved and automatically applied across all screens.</p>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">TEXT SIZE</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-text="normal">Default</button>
+                        <button type="button" class="access-toggle-btn" data-access-text="large">Large (116%)</button>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">CONTRAST</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-contrast="normal">Standard</button>
+                        <button type="button" class="access-toggle-btn" data-access-contrast="high">High Contrast OLED</button>
+                    </div>
+                </div>
+                <div>
+                    <label style="font-size: 0.85rem; font-weight: 600; color: var(--cyan);">MOTION</label>
+                    <div class="access-control-group" style="margin-top: 6px;">
+                        <button type="button" class="access-toggle-btn active" data-access-motion="normal">Standard</button>
+                        <button type="button" class="access-toggle-btn" data-access-motion="reduced">Reduced</button>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="primary-btn" style="width: 100%; margin-top: 24px;"
+                onclick="document.getElementById('accessibility-modal').classList.remove('open')">
+                Save &amp; Apply
+            </button>
+        </div>
+    </div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile Navigation">
+        <a href="index.html" class="bottom-nav-item">
+            <span class="icon">⌂</span>
+            <span>Home</span>
+        </a>
+        <a href="route.html" class="bottom-nav-item">
+            <span class="icon">◉</span>
+            <span>Journey</span>
+        </a>
+        <a href="tracking.html" class="bottom-nav-item">
+            <span class="icon">🗺</span>
+            <span>Map</span>
+        </a>
+        <a href="payments.html" class="bottom-nav-item active" aria-current="page">
+            <span class="icon">💳</span>
+            <span>Payments</span>
+        </a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div>
+                    <div class="logo" style="margin-bottom: 8px;">
+                        <div class="logo-symbol">A</div>
+                        <div>AeroFlux<span>2100</span></div>
+                    </div>
+                    <p style="max-width: 400px; font-size: 0.9rem;">
+                        One Journey. Every Future. The unified multi-modal autonomous mobility platform for the metropolitan grid of 2100.
+                    </p>
+                </div>
+                <div>
+                    <div style="display: flex; gap: 24px; flex-wrap: wrap; font-size: 0.9rem;">
+                        <a href="index.html" style="color: var(--muted); text-decoration: none;">Home</a>
+                        <a href="route.html" style="color: var(--muted); text-decoration: none;">Route Details</a>
+                        <a href="tracking.html" style="color: var(--muted); text-decoration: none;">Live Tracking</a>
+                        <a href="payments.html" style="color: var(--cyan); text-decoration: none;">Payments</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2100 AeroFlux Metropolitan Transit Authority. All rights reserved.</span>
+                <span>ISO-2100 Inclusive Mobility Certified • WCAG AAA Compliant</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/payments.js"></script>
+
+</body>
+
+</html>

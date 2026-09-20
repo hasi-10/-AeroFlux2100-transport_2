@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/notifications.css">
+    <link rel="stylesheet" href="css/payments.css">
 </head>
 <body>
 
@@ -32,6 +34,7 @@
             </nav>
 
             <div class="nav-actions">
+                <!-- Notification bell injected by JS -->
                 <a href="login.html" class="primary-btn" style="font-size: 0.85rem; padding: 8px 16px;">Login</a>
             </div>
         </div>
@@ -242,6 +245,43 @@
             </div>
         </div>
 
+        <!-- Payment Checkout Widget -->
+        <div id="af-checkout-widget" class="af-checkout-widget animate-fade-up" style="animation-delay: 0.3s;">
+            <div class="af-checkout-header">
+                <h3>PAYMENT REQUIRED</h3>
+            </div>
+            
+            <div class="af-checkout-pm-row">
+                <div>
+                    <div class="af-checkout-pm-label">Payment Method</div>
+                    <div id="af-checkout-pm-display" class="af-checkout-pm-display">Loading...</div>
+                </div>
+                <button type="button" id="af-checkout-change-pm" class="af-checkout-change-btn">Change</button>
+            </div>
+            
+            <div class="af-fare-breakdown">
+                <div class="af-fare-row">
+                    <span>Base Fare (Multi-Modal)</span>
+                    <strong>LKR 450</strong>
+                </div>
+                <div class="af-fare-row">
+                    <span>AeroFlux Network Fee (4%)</span>
+                    <strong>LKR 18</strong>
+                </div>
+                <div class="af-fare-row af-fare-total">
+                    <span>Total Due</span>
+                    <strong>LKR 468</strong>
+                </div>
+            </div>
+            
+            <button type="button" id="af-confirm-pay-btn" class="primary-btn af-confirm-pay-btn">
+                CONFIRM & PAY
+            </button>
+        </div>
+
+        <!-- Payment Processing Overlay -->
+        <div id="af-payment-overlay" class="af-payment-overlay" role="dialog" aria-modal="true" aria-hidden="true"></div>
+
         <!-- Main Action CTA to Live Tracking -->
         <div style="margin: 40px 0 60px; display: flex; gap: 16px; flex-wrap: wrap;">
             <a href="tracking.html" class="primary-btn" style="flex: 1; min-width: 260px; font-size: 1.1rem; padding: 18px 28px;">
@@ -330,9 +370,9 @@
             <span class="icon">◉</span>
             <span>Journey</span>
         </a>
-        <a href="tracking.html" class="bottom-nav-item">
-            <span class="icon">🗺</span>
-            <span>Map</span>
+        <a href="payments.html" class="bottom-nav-item">
+            <span class="icon">💳</span>
+            <span>Payments</span>
         </a>
         <button type="button" class="bottom-nav-item" onclick="document.getElementById('accessibility-modal').classList.add('open')">
             <span class="icon">♿</span>
@@ -367,6 +407,8 @@
     </footer>
 
     <script src="js/common.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/payments.js"></script>
     <script src="js/route.js"></script>
 </body>
 </html>

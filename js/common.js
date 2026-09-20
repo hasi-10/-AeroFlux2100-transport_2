@@ -6,6 +6,30 @@
 (function () {
     'use strict';
 
+    // --- Guard: Enforce Intro -> Login -> Index Flow ---
+    const path = window.location.pathname;
+    const isIntroPlayed = sessionStorage.getItem('aeroflux_intro_played') === 'true';
+    const isLoggedIn = !!sessionStorage.getItem('aeroflux_user_id');
+    
+    // If not intro, check if intro played
+    if (!path.endsWith('intro.html') && !isIntroPlayed) {
+        window.location.replace('intro.html');
+        return; // Stop execution
+    }
+    
+    // If intro played but not logged in, and not on login page, go to login
+    if (isIntroPlayed && !isLoggedIn && !path.endsWith('login.html') && !path.endsWith('intro.html')) {
+        window.location.replace('login.html');
+        return;
+    }
+    
+    // If logged in and on login page, go to index
+    if (isLoggedIn && path.endsWith('login.html')) {
+        window.location.replace('index.html');
+        return;
+    }
+
+
     // --- State Storage Keys ---
     const STORAGE_KEY = 'nexus_2100_preferences';
 
@@ -432,9 +456,79 @@
                 textNode.style.fontSize = '0.85rem';
                 textNode.style.color = 'var(--cyan)';
                 textNode.style.letterSpacing = '0.05em';
-                
                 profileContainer.appendChild(avatar);
                 profileContainer.appendChild(textNode);
+                
+                // Add Dropdown Menu Logic for Payment Methods
+                profileContainer.style.position = 'relative';
+                profileContainer.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    let menu = document.getElementById('af-profile-dropdown');
+                    
+                    if (menu) {
+                        menu.remove();
+                        return;
+                    }
+                    
+                    // Close any existing menus
+                    document.querySelectorAll('.af-profile-dropdown').forEach(m => m.remove());
+                    
+                    menu = document.createElement('div');
+                    menu.id = 'af-profile-dropdown';
+                    menu.className = 'af-profile-dropdown';
+                    menu.style.position = 'absolute';
+                    menu.style.top = '100%';
+                    menu.style.right = '0';
+                    menu.style.marginTop = '12px';
+                    menu.style.background = 'rgba(10, 16, 28, 0.95)';
+                    menu.style.backdropFilter = 'blur(12px)';
+                    menu.style.border = '1px solid var(--cyan)';
+                    menu.style.borderRadius = 'var(--radius-md)';
+                    menu.style.padding = '8px 0';
+                    menu.style.minWidth = '180px';
+                    menu.style.zIndex = '1000';
+                    menu.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.8)';
+                    
+                    const pLink = document.createElement('a');
+                    pLink.href = 'payments.html';
+                    pLink.textContent = '💳 Payment Methods';
+                    pLink.style.display = 'block';
+                    pLink.style.padding = '10px 16px';
+                    pLink.style.color = 'var(--text)';
+                    pLink.style.textDecoration = 'none';
+                    pLink.style.fontSize = '0.85rem';
+                    pLink.addEventListener('mouseenter', () => pLink.style.background = 'rgba(0, 240, 255, 0.1)');
+                    pLink.addEventListener('mouseleave', () => pLink.style.background = 'transparent');
+                    
+                    const lLink = document.createElement('a');
+                    lLink.href = '#';
+                    lLink.textContent = '🚪 Logout';
+                    lLink.style.display = 'block';
+                    lLink.style.padding = '10px 16px';
+                    lLink.style.color = 'var(--red)';
+                    lLink.style.textDecoration = 'none';
+                    lLink.style.fontSize = '0.85rem';
+                    lLink.addEventListener('mouseenter', () => lLink.style.background = 'rgba(255, 92, 122, 0.1)');
+                    lLink.addEventListener('mouseleave', () => lLink.style.background = 'transparent');
+                    lLink.addEventListener('click', (ev) => {
+                        ev.preventDefault();
+                        sessionStorage.removeItem('aeroflux_user_photo');
+                        sessionStorage.removeItem('aeroflux_user_id');
+                        window.location.reload();
+                    });
+                    
+                    menu.appendChild(pLink);
+                    menu.appendChild(lLink);
+                    profileContainer.appendChild(menu);
+                    
+                    document.addEventListener('click', function closeMenu(ev) {
+                        if (!profileContainer.contains(ev.target)) {
+                            const m = document.getElementById('af-profile-dropdown');
+                            if (m) m.remove();
+                            document.removeEventListener('click', closeMenu);
+                        }
+                    });
+                });
                 
                 // Replace login button with profile
                 loginBtn.replaceWith(profileContainer);

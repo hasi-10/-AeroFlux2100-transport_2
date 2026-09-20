@@ -1,9 +1,10 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Note: session storage logic is commented out so you can see the animation every time for now!
-    // if (sessionStorage.getItem('aeroflux_intro_played') === 'true') {
-    //     window.location.href = 'index.html';
-    //     return;
-    // }
+    // If intro already played, skip to index (or login if not logged in, handled by common.js but intro doesn't load it)
+    if (sessionStorage.getItem('aeroflux_intro_played') === 'true') {
+        const isLoggedIn = !!sessionStorage.getItem('aeroflux_user_id');
+        window.location.replace(isLoggedIn ? 'index.html' : 'login.html');
+        return;
+    }
 
     const textContainer = document.getElementById('aeroflux-text');
     const tagline = document.querySelector('.intro-tagline');
