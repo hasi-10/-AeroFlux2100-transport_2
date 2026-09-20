@@ -249,7 +249,59 @@
                 handleSend();
             });
         });
+
+        // Voice Input Simulation
+        const voiceBtn = document.createElement('button');
+        voiceBtn.innerHTML = '🎤';
+        voiceBtn.className = 'icon-btn';
+        voiceBtn.style.cssText = 'background:transparent; border:none; color:var(--cyan); font-size:1.2rem; cursor:pointer; transition:transform 0.2s; margin-right: 8px;';
+        
+        const inputArea = document.querySelector('.ora-input-area');
+        if (inputArea && sendBtn) {
+            inputArea.insertBefore(voiceBtn, sendBtn);
+            
+            voiceBtn.addEventListener('click', () => {
+                if (voiceBtn.classList.contains('listening')) {
+                    voiceBtn.classList.remove('listening');
+                    voiceBtn.style.color = 'var(--cyan)';
+                    voiceBtn.style.transform = 'scale(1)';
+                    input.placeholder = "Message ORA...";
+                } else {
+                    voiceBtn.classList.add('listening');
+                    voiceBtn.style.color = '#FF264D'; // Red glowing
+                    voiceBtn.style.transform = 'scale(1.2)';
+                    input.placeholder = "Listening... (Speak now)";
+                    
+                    // Simulate Voice Recognition after 2.5s
+                    setTimeout(() => {
+                        if (voiceBtn.classList.contains('listening')) {
+                            voiceBtn.classList.remove('listening');
+                            voiceBtn.style.color = 'var(--cyan)';
+                            voiceBtn.style.transform = 'scale(1)';
+                            input.placeholder = "Message ORA...";
+                            input.value = "What is the fastest route right now?";
+                            handleSend();
+                        }
+                    }, 2500);
+                }
+            });
+        }
     }
+
+    // --- Footer Scroll Overlap Fix ---
+    window.addEventListener('scroll', () => {
+        const oraBtn = document.getElementById('ora-ai-trigger-btn');
+        if (!oraBtn) return;
+        
+        // If we are near the bottom of the page (within 100px of max scroll)
+        const isNearBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 150;
+        
+        if (isNearBottom) {
+            oraBtn.classList.add('bump-up');
+        } else {
+            oraBtn.classList.remove('bump-up');
+        }
+    });
 
     // Initialize Accessibility Listeners
     function setupAccessibilityListeners() {
@@ -311,6 +363,22 @@
         setupModals();
         setupOraChat();
         setupAccessibilityListeners();
+        
+        // --- Custom Cyber Cursor (Global) ---
+        const cursor = document.createElement('div');
+        cursor.classList.add('cyber-cursor');
+        document.body.appendChild(cursor);
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        const interactiveElements = document.querySelectorAll('a, button, input, select, .transit-node, .mode-chip, .pill-badge');
+        interactiveElements.forEach(el => {
+            el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+            el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+        });
     });
 
 })();

@@ -1,0 +1,85 @@
+.intro-body {
+    background-color: #030508; /* Deep futuristic space color */
+    background-image: radial-gradient(circle at center, rgba(0, 240, 255, 0.15) 0%, transparent 60%);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Space Grotesk', sans-serif;
+    color: #F8FAFC;
+    transition: opacity 1s ease-in-out;
+}
+
+.intro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.aeroflux-title {
+    font-size: 5rem;
+    font-weight: 800;
+    color: transparent;
+    margin: 0 0 10px 0;
+    display: flex;
+    letter-spacing: 0.15em;
+}
+
+/* Individual animated letters */
+.letter {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+    color: #F8FAFC;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0), 0 0 20px rgba(0, 229, 255, 0);
+    animation: revealLetter 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Keyframes for individual letters */
+@keyframes revealLetter {
+    0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+        color: #00E5FF; /* Start with cyan tint */
+        text-shadow: 0 0 10px rgba(0, 229, 255, 0.8), 0 0 20px rgba(0, 229, 255, 0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        color: #F8FAFC;
+        text-shadow: 0 0 15px rgba(0, 229, 255, 0.6), 0 0 30px rgba(139, 92, 246, 0.4);
+    }
+}
+
+.intro-tagline {
+    font-size: 1.2rem;
+    color: #00E5FF;
+    letter-spacing: 0.4em;
+    opacity: 0;
+    transform: translateY(10px);
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+}
+
+/* Tagline fade in animation */
+.intro-tagline.show {
+    animation: fadeTagline 1.2s ease-out forwards;
+}
+
+@keyframes fadeTagline {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.intro-body.fade-out {
+    opacity: 0;
+}
